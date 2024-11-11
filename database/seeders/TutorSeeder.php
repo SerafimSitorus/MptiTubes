@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 
 use App\Models\tutor;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -17,7 +18,7 @@ class TutorSeeder extends Seeder
         $parentdata = [
             [
                 'nik' => '1111222244444444',
-                'user_id' => '3',
+                'user_id' => User::where('email', 'wahyu@gmail.com')->first()->id,
                 'nama_tutor' => 'Wahyu Sianipar',
                 'jenis_kelamin' => 'L',
                 'tempat_lahir' => 'Balige',
@@ -32,7 +33,7 @@ class TutorSeeder extends Seeder
             ],
             [
                 'nik' => '1111222255554444',
-                'user_id' => '12',
+                'user_id' => User::where('email', 'hermann@gmail.com')->first()->id,
                 'nama_tutor' => 'Hermann Fegelein',
                 'jenis_kelamin' => 'L',
                 'tempat_lahir' => 'Jerman, Berlin',
@@ -47,7 +48,7 @@ class TutorSeeder extends Seeder
             ],
             [
                 'nik' => '1111222266664444',
-                'user_id' => '13',
+                'user_id' => User::where('email', 'wilhelm@gmail.com')->first()->id,
                 'nama_tutor' => 'Wilhelm Keitel',
                 'jenis_kelamin' => 'L',
                 'tempat_lahir' => 'Amerika, New York',
@@ -62,7 +63,7 @@ class TutorSeeder extends Seeder
             ],
             [
                 'nik' => '1111222277774444',
-                'user_id' => '14',
+                'user_id' => User::where('email', 'kirsten@gmail.com')->first()->id,
                 'nama_tutor' => 'Kirsten Hutapea',
                 'jenis_kelamin' => 'P',
                 'tempat_lahir' => 'Tangerang',
