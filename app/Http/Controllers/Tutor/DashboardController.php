@@ -205,10 +205,10 @@ class DashboardController extends Controller
             $cvName = $user->username . '.cv.' . $cv->getClientOriginalExtension();
 
             // Move CV to public/cv folder
-            $cv->storeAs('public/cv', $cvName);
+            $cv->move('cv/', $cvName);
 
             // Update CV path in the database (optional, depending on your needs)
-            $tutors->cv = 'storage/cv/' . $cvName; // Update with relative path if needed
+            $tutors->cv = 'cv/' . $cvName; // Update with relative path if needed
         }
         $tutors->nik = $request->input('nik');
         $tutors->nama_tutor = $request->input('nama_tutor');

@@ -4,7 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+
 use App\Models\operator;
+use App\Models\User;
 
 class OperatorSeeder extends Seeder
 {
@@ -16,7 +18,7 @@ class OperatorSeeder extends Seeder
         $parentdata = [
             [
                 'nik' => '1111333333334444',
-                'user_id' => '2',
+                'user_id' => User::where('email', 'serafim@gmail.com')->first()->id,
                 'nama_operator' => 'Serafim Edgar Pandamei Sitorus',
                 'jenis_kelamin' => 'L',
                 'tempat_lahir' => 'Pematangsiantar',
@@ -29,7 +31,7 @@ class OperatorSeeder extends Seeder
             ],
             [
                 'nik' => '1111444433334444',
-                'user_id' => '5',
+                'user_id' => User::where('email', 'ghalbi@gmail.com')->first()->id,
                 'nama_operator' => 'Ghalbi Daffa Yustiawan',
                 'jenis_kelamin' => 'L',
                 'tempat_lahir' => 'Medan',
@@ -42,7 +44,7 @@ class OperatorSeeder extends Seeder
             ],
             [
                 'nik' => '1111555533334444',
-                'user_id' => '6',
+                'user_id' => User::where('email', 'rifqi@gmail.com')->first()->id,
                 'nama_operator' => 'Rifqi Jabrah Rhae',
                 'jenis_kelamin' => 'L',
                 'tempat_lahir' => 'Medan',

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use App\Models\parents;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -16,7 +17,7 @@ class ParentSeeder extends Seeder
         $parentdata = [
             [
                 'nik' => '1111222233334444',
-                'user_id' => '4',
+                'user_id' => User::where('email', 'cici@gmail.com')->first()->id,
                 'nama_parents' => 'Ceycylia Dear Amizafatel',
                 'jenis_kelamin' => 'P',
                 'tempat_lahir' => 'Batam',
@@ -27,7 +28,7 @@ class ParentSeeder extends Seeder
             ],
             [
                 'nik' => '1111222233335555',
-                'user_id' => '9',
+                'user_id' => User::where('email', 'gunawan@gmail.com')->first()->id,
                 'nama_parents' => 'Gunawan Sihombing',
                 'jenis_kelamin' => 'L',
                 'tempat_lahir' => 'Bali',
@@ -38,7 +39,7 @@ class ParentSeeder extends Seeder
             ],
             [
                 'nik' => '1111222233336666',
-                'user_id' => '10',
+                'user_id' => User::where('email', 'gazali@gmail.com')->first()->id,
                 'nama_parents' => 'Gazali Sitorus',
                 'jenis_kelamin' => 'L',
                 'tempat_lahir' => 'Depok',
@@ -49,7 +50,7 @@ class ParentSeeder extends Seeder
             ],
             [
                 'nik' => '1111222233337777',
-                'user_id' => '11',
+                'user_id' => User::where('email', 'gizali@gmail.com')->first()->id,
                 'nama_parents' => 'Gizali Gunawan',
                 'jenis_kelamin' => 'L',
                 'tempat_lahir' => 'Comberan',

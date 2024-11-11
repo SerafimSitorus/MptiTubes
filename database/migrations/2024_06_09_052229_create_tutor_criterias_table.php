@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tutor_criterias', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id')->primary();
             $table->string('nik')->length(16);
             $table->enum('jenis_kelamin',['L','P','Both']);
             $table->string('provinsi');
             $table->string('alamat_mengajar')->length(250);
             $table->string('universitas_sekolah')->length(250);
             $table->enum('student_level',['S3','S2', 'S1','SMA','SMK','SMP','SD','TK']);
-            $table->string('jurusan')->length(100);
+            $table->string('jurusan')->length(100); 
             $table->string('mata_pelajaran');
             $table->string('hari')->length(250);
             $table->enum('status',['Disetujui','Ditolak', 'Menunggu Persetujuan']);
