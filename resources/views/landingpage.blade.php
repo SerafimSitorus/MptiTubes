@@ -114,13 +114,9 @@ document.addEventListener('DOMContentLoaded', loadDarkMode);
           <span class="text-white md:block hidden font-bold text-xl">Private Tutor Indonesia</span>
       </div>
       <div class="hidden md:block justify-center items-center space-x-6">
-        <a href="#" class="content-center text-white font-bold no-underline hover:text-yellow-500 py-2 px-4">Beranda</a>
-        <a href="#tentang-kami" class="content-center text-white font-bold no-underline hover:text-yellow-500 py-2 px-4">Tentang Kami</a>
-        <a href="#kontak" class="content-center text-white font-bold no-underline hover:text-yellow-500 py-2 px-4">Kontak</a>
-    </div>
-    @if (Route::has('login'))
-    <div class="md:block flex-col items-center space-x-3">
+        {{-- @if (Route::has('login'))
         @auth
+        <a href="#" class="content-center text-white font-bold no-underline hover:text-yellow-500 py-2 px-4">Beranda</a>
             <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
         @else
             <a href="{{ route('login') }}" class="hover:underline text-white font-bold rounded-full py-2 px-6">Log in</a>
@@ -129,7 +125,32 @@ document.addEventListener('DOMContentLoaded', loadDarkMode);
             @endif
         @endauth
     </div>
-    @endif
+    @endif --}}
+        {{-- <a href="#" class="content-center text-white font-bold no-underline hover:text-yellow-500 py-2 px-4">Beranda</a> --}}
+        <a href="#tentang-kami" class="content-center text-white font-bold no-underline hover:text-yellow-500 py-2 px-4">Tentang Kami</a>
+        <a href="#kontak" class="content-center text-white font-bold no-underline hover:text-yellow-500 py-2 px-4">Kontak</a>
+    </div>
+    @if (Route::has('login'))
+    <div class="md:block flex-col items-center space-x-3">
+        @auth
+            <!-- Cek role user dan tampilkan menu yang sesuai -->
+            @if (auth()->user()->role == 'superadmin')
+                <a href="{{ url('superadmin/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Beranda</a>
+            @elseif (auth()->user()->role == 'operator')
+                <a href="{{ url('operator/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Beranda</a>
+            @elseif (auth()->user()->role == 'tutor')
+                <a href="{{ url('tutor/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Beranda</a>
+            @elseif (auth()->user()->role == 'parent')
+                <a href="{{ url('parent/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Beranda</a>
+            @endif
+        @else
+            <a href="{{ route('login') }}" class="hover:underline text-white font-bold rounded-full py-2 px-6">Log in</a>
+            @if (Route::has('register'))
+                <a href="{{ route('register') }}" class="hover:underline bg-white text-blue-900 font-bold rounded-full py-2 px-5">Register</a>
+            @endif
+        @endauth
+    </div>
+@endif
       <div class="flex items-center gap-3 ">
           <button onclick="toggleDarkMode()" class="flex items-center space-x-2 px-3 py-3 bg-white/10 text-white rounded-md">
               <img src="{{ asset('images/moon.svg') }}" alt="moon" class="w-6"/>
@@ -488,9 +509,9 @@ document.addEventListener('DOMContentLoaded', loadDarkMode);
         <h3 class="my-4 text-3xl leading-tight">
           Private Tutor Indonesia siap membantu pendidikan kamu!
         </h3>
-        <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+        <a href="{{ route('login') }}" class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
           Mulai Sekarang
-        </button>
+        </a>
       </section>
 
 

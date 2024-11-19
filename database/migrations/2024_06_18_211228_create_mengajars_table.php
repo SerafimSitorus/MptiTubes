@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('mengajars', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedBigInteger('lowongan_id');
+            $table->char('lowongan_id')->length(36);
             $table->unsignedBigInteger('lamaran_id');
             $table->string('nik_tutor')->length(16);
             $table->string('nik_parent')->length(16);

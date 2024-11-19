@@ -20,13 +20,14 @@ class DashboardController extends Controller
     {
         $user = auth()->user()->id;
         $nik = Parents::where('user_id', $user)->first()->nik;
+        // $status_mengajar = 'Mengajar'
         $status_public = 'Disetujui';
         $status_pending = 'Menunggu Persetujuan';
         $public = tutor_criteria::where('status', $status_public)
                 ->where('nik', $nik)->count();
         $menunggu = tutor_criteria::where('status', $status_pending)
                 ->where('nik', $nik)->count();
-        $mengajar = Mengajar::where('nik_parent', $nik)->count();
+        $mengajar = Mengajar::where('nik_parent', $nik)->where('status', 'Mengajar')->count();
 
         return view('parents.dashboard-parents', compact('public', 'mengajar', 'menunggu'));
     }
