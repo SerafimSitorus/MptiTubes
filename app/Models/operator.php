@@ -39,4 +39,9 @@ class operator extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function operator()
+    {
+        return $this->hasOne(Operator::class); // Relasi ke tabel operator
+    }
 }
