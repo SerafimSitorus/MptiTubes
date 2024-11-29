@@ -58,6 +58,7 @@
                     <span>
                         <p class="text-sm">{{ $item->jam }}</p>
                         <p class="text-sm">{{ $item->fee }}</p>
+                        <p class="font-bold text-lg mb-2">{{ $item->provinsi }}</p>
                     </span>
                 </div>
                 <div class="flex justify-end px-6 pt-4 pb-2">
@@ -79,7 +80,7 @@
                     <span>
                         <p class="text-sm">{{ $item->jam }}</p>
                         <p class="text-sm">{{ $item->fee }}</p>
-                        <p class="text-sm">Lokasi : {{ $item->alamat_mengajar }}</p>
+                        <p class="font-bold text-lg mb-2">{{ $item->alamat_mengajar }}</p>
                     </span>
                 </div>
                 <div class="flex justify-end px-6 pt-4 pb-2">
@@ -94,12 +95,38 @@
 
     <!-- Pagination -->
     @if(isset($result))
-    <div class="mt-8">
-        {{ $result->links() }}
+    <!-- Pagination Section -->
+    <div class="flex justify-between items-center mt-6">
+        <div>
+            @if ($result->total() > 0)
+                <p class="text-sm lg:text-base">Menampilkan {{ $result->firstItem() }} ke {{ $result->lastItem() }} dari {{ $result->total() }} Keseluruhan</p>  
+            @else    
+                <p class="text-sm lg:text-base">Menampilkan 0 data</p>  
+            @endif
+        </div>
+        <div class="flex space-x-4">
+            <!-- Prev Button -->
+            <a href="{{ $result->previousPageUrl() }}" class="py-2 px-4 bg-yellow-100 rounded-md text-gray-600 hover:bg-yellow-200 {{ $result->onFirstPage() ? 'cursor-not-allowed opacity-50' : '' }} {{ $result->onFirstPage() ? 'disabled' : '' }} mx-2">&lt;</a>
+            <!-- Next Button -->
+            <a href="{{ $result->nextPageUrl() }}" class="py-2 px-4 bg-yellow-100 rounded-md text-gray-600 hover:bg-yellow-200 {{ !$result->hasMorePages() ? 'cursor-not-allowed opacity-50' : '' }} {{ !$result->hasMorePages() ? 'disabled' : '' }} mx-2">&gt;</a>
+        </div>
     </div>
     @else
-    <div class="mt-8">
-        {{ $alljob->links() }}
+    <!-- Pagination Section -->
+    <div class="flex justify-between items-center mt-6">
+        <div>
+            @if ($alljob->total() > 0)
+                <p class="text-sm lg:text-base">Menampilkan {{ $alljob->firstItem() }} sampai {{ $alljob->lastItem() }} dari {{ $alljob->total() }} keseluruhan</p>    
+            @else    
+                <p class="text-sm lg:text-base">Menampilkan 0 data</p>    
+            @endif
+        </div>
+        <div class="flex space-x-4">
+            <!-- Prev Button -->
+            <a href="{{ $alljob->previousPageUrl() }}" class="py-2 px-4 bg-yellow-100 rounded-md text-gray-600 hover:bg-yellow-200 {{ $alljob->onFirstPage() ? 'cursor-not-allowed opacity-50' : '' }} {{ $alljob->onFirstPage() ? 'disabled' : '' }} mx-2">&lt;</a>
+            <!-- Next Button -->
+            <a href="{{ $alljob->nextPageUrl() }}" class="py-2 px-4 bg-yellow-100 rounded-md text-gray-600 hover:bg-yellow-200 {{ !$alljob->hasMorePages() ? 'cursor-not-allowed opacity-50' : '' }} {{ !$alljob->hasMorePages() ? 'disabled' : '' }} mx-2">&gt;</a>
+        </div>
     </div>
     @endif
 </div>

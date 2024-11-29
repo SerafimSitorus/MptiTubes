@@ -5,9 +5,9 @@
             <span class="text-white md:block hidden font-bold text-xl">Private Tutor Indonesia</span>
         </div>
         <div class="flex items-center gap-3 ">
-            <button onclick="toggleDarkMode()" class="flex items-center space-x-2 px-3 py-3 bg-white/10 text-white rounded-md">
+            {{-- <button onclick="toggleDarkMode()" class="flex items-center space-x-2 px-3 py-3 bg-white/10 text-white rounded-md">
                 <img src="{{ asset('images/moon.svg') }}" alt="moon" class="w-6"/>
-            </button>
+            </button> --}}
             <button id="navbar-burger" class="items-center px-3 py-2 mt-2 mr-4 text-gray-200 border border-gray-400 rounded md:hidden hover:bg-blue-800">
               <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0,0,256,256"
                 style="fill:#FFFFFF;">
@@ -65,8 +65,10 @@
           <li><a href="dashboard" class="flex justify-between items-center py-2 text-lg">Dashboard <span>&rarr;</span></a></li>
           <li><a href="operator-tutor-status" class="flex justify-between items-center py-2 text-lg">Status Tutor <span>&rarr;</span></a></li>
           <li><a href="operator-tutor-criteria-inbox" class="flex justify-between items-center py-2 text-lg">Lowongan<span>&rarr;</span></a></li>
-          <li><a href="operator-tutor-review" class="flex justify-between items-center py-2 text-lg">Tutor Review <span>&rarr;</span></a></li>
-          <li><a href="#" class="flex justify-between items-center py-2 text-lg">Log out <span>&rarr;</span></a></li>
+          <form action="{{route('logout')}}" method="post">
+            @csrf
+            <li><button type="submit" class="flex justify-between items-center py-2 text-lg">Log out <span>&rarr;</span></button></li>
+          </form>
       </ul>
   </div>
 </nav> 

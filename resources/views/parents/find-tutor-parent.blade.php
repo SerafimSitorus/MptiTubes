@@ -50,6 +50,23 @@
             </div>
           </div>
     </div>
+    <div class="flex justify-between items-center mt-6">
+      <div>
+          @if ($lowongans->total() > 0)
+          <p class="text-sm lg:text-base">Menampilkan {{ $lowongans->firstItem() }} sampai {{ $lowongans->lastItem() }} dari {{ $lowongans->total() }} data</p>
+      
+          @else
+          <p class="text-sm lg:text-base">Showing 0 data</p>
+              
+          @endif
+      </div>
+      <div class="flex space-x-4">
+          <!-- Prev Button -->
+          <a href="{{ $lowongans->previousPageUrl() }}" class="py-2 px-4 bg-yellow-100 rounded-md text-gray-600 hover:bg-yellow-200 {{ $lowongans->onFirstPage() ? 'cursor-not-allowed opacity-50' : '' }}" {{ $lowongans->onFirstPage() ? 'disabled' : '' }}>&lt;</a>
+          <!-- Next Button -->
+          <a href="{{ $lowongans->nextPageUrl() }}" class="py-2 px-4 bg-yellow-100 rounded-md text-gray-600 hover:bg-yellow-200 {{ !$lowongans->hasMorePages() ? 'cursor-not-allowed opacity-50' : '' }}" {{ !$lowongans->hasMorePages() ? 'disabled' : '' }}>&gt;</a>
+      </div>
+  </div>
 </div>
 
 

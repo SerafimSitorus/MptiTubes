@@ -203,7 +203,7 @@ class DashboardController extends Controller
     {
         $parent = parents::where('user_id', auth()->id())->first();
         $nik = $parent->nik;
-        $lowongans = tutor_criteria::where('nik', $nik)->get();
+        $lowongans = tutor_criteria::where('nik', $nik)->paginate(5);
 
         return view('parents.find-tutor-parent', compact('lowongans'));
     }
@@ -274,7 +274,7 @@ class DashboardController extends Controller
         'lamarans.created_at as waktu', 'lamarans.id_lamaran as lamaran_id', 
         'tutors.nik as tutor_nik', 'tutor_criterias.id as lowongan_tutor', 'lamarans.status as status_lamaransss')
         ->where('nik_parent', $nik)
-        ->get();
+        ->paginate(10);
         return view('parents.tutor-applicants-parent', compact('data'));
     }
 
@@ -301,28 +301,35 @@ class DashboardController extends Controller
     public function applicants_terima($id)
     {
         $terima = Lamaran::where('id_lamaran', $id)->first();
+        // dd($terima);
         $status_lamar = tutor_criteria::where('id', $terima->lowongan_id)->first();
         // dd($terima);
-        $terima->status = 'Disetujui';
-        $terima->save();
+        Lamaran::where('lowongan_id', $terima->lowongan_id)  // Cari semua pelamar untuk lowongan yang sama
+            ->where('id_lamaran', '!=', $terima->id_lamaran)  // Kecuali pelamar yang baru diterima
+            ->update(['status' => 'Ditolak']);
         try {
+            $terima->status = 'Disetujui';
+            
+            $terima->save();
             $terima = [
                 'lowongan_id' => $terima->lowongan_id,
-                'lamaran_id' => $terima->id_lamaran,
+                'lamaran_id' => $terima->id_lamaran, 
                 'nik_tutor' => $terima->nik_tutor,
                 'nik_parent' => $terima->nik_parent,
-            ];
+            ];  
             
             Mengajar::create($terima);
 
             $status_lamar->status_accept = 'Sudah Dilamar';
             $status_lamar->save();
+
+            
             
             return redirect()->back()->with('success_menerima', 'Berhasil Menerima Tutor');
         } catch (\Throwable $th) {
             dd($th);
         }
-        dd($terima);
+        // dd($terima);
 
         return redirect()->back()->wit('success_menerima', 'Berhasil menerima tutor');
     }
@@ -336,10 +343,11 @@ class DashboardController extends Controller
         ->join('tutor_criterias', 'mengajars.lowongan_id', '=', 'tutor_criterias.id')
         ->join('tutors', 'mengajars.nik_tutor', '=', 'tutors.nik')
         ->select('tutor_criterias.*', 'mengajars.id as id_mengajar', 
-        'tutors.nama_tutor as nama_tutor', 'tutors.image as gambar')
+        'tutors.nama_tutor as nama_tutor', 'tutors.image as gambar', 'tutors.nik as nik_tutor')
         ->where('mengajars.nik_parent', $nik)
         ->where('mengajars.status', $status)
         ->get();
+        // dd($kerja);
 
         return view('parents.tutor-review-parent', compact('kerja'));
     }
@@ -347,16 +355,18 @@ class DashboardController extends Controller
     public function berhentikantutortombol($id)
     {
 
+        try {
         $data_mengajar = Mengajar::where('id', $id)->first();
         $data_lamaran = Lamaran::where('id_lamaran', $data_mengajar->lamaran_id)->first();
         $data_lowongan = tutor_criteria::where('id', $data_mengajar->lowongan_id)->first();
+        // dd($data_lowongan);
+        DB::beginTransaction();
         $data_mengajar->status = 'Berhenti';
         $data_mengajar->save();
-        DB::beginTransaction();
         
-        try {
-            $data_lamaran->delete();
-            $data_lowongan->delete();
+        $data_mengajar->delete();
+        Lamaran::where('id_lamaran', $data_mengajar->lowongan_id)->delete();
+        $data_lowongan->delete();
 
             // Jika semua operasi berhasil, komit transaksi
             DB::commit();

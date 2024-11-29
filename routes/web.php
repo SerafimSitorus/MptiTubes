@@ -81,6 +81,7 @@ Route::group(['prefix'=>'operator', 'middleware' => 'auth'], function () {
     });
     
     Route::get('/operator-tutor-status', [OperatorDashboardController::class, 'tampilstatusmengajar']);
+    Route::get('/operator-tutor-status-search', [OperatorDashboardController::class, 'tampilstatusmengajarsearch'])->name('search_status_tutor_mengajar');
     Route::get('/operator-tutor-berhenti{id_mengajar}', [OperatorDashboardController::class, 'hentikan_mengajar'])->name('hentikan_tutor_mengajar');
     // Route::get('/operator-tutor-status-detail{id_lowongan}', [OperatorDashboardController::class, 'tampilstatusmengajar_detail'])->name('detail_tutor');
     
@@ -89,6 +90,7 @@ Route::group(['prefix'=>'operator', 'middleware' => 'auth'], function () {
     });
     
     Route::get('/operator-tutor-criteria-inbox', [OperatorDashboardController::class, 'tutorcriteria']);
+    Route::get('/operator-tutor-criteria-inbox-search', [OperatorDashboardController::class, 'tutorcriteriasearch'])->name('search_tutor_criteria_operator');
     Route::get('/operator-tutor-criteria-inbox-terima/{id_lowongan}', [OperatorDashboardController::class, 'tutorcriteria_terima'])->name('tutor_criteria_inbox_terima');
     Route::get('/operator-tutor-criteria-inbox-tolak/{id_lowongan}', [OperatorDashboardController::class, 'tutorcriteria_tolak'])->name('tutor_criteria_inbox_tolak');
     Route::get('/operator-tutor-criteria-inbox-detail/{id_lowongan}', [OperatorDashboardController::class, 'tutorcriteriadetail'])->name('tutor_criteria_detail');
@@ -132,6 +134,7 @@ Route::group(['prefix'=>'superadmin', 'middleware'=> ['auth']], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('superadmin/dashboard');
     Route::controller(OperatorController::class)->group(function(){
         Route::get('operator', 'index')->name('superadmin/operator');
+        Route::get('operator-province', 'filtertutor')->name('superadmin/operator-province');
         Route::get('operator/add', 'create')->name('superadmin/operator/add');
         Route::post('operator/store', 'store')->name('superadmin/operator/store');
         Route::get('operator/{id}/detail', 'show')->name('superadmin/operator/detail');
@@ -143,8 +146,12 @@ Route::group(['prefix'=>'superadmin', 'middleware'=> ['auth']], function () {
     });
     Route::controller(TutorController::class)->group(function(){
         Route::get('tutor', 'list')->name('superadmin/tutor');
+        Route::get('tutor/search', 'cari_tutor')->name('superadmin/search-tutor-list');
         Route::get('tutor/{id}/detail', 'list_detail')->name('superadmin/tutor/detail');
+        Route::get('tutor/{id}/edit', 'list_edit')->name('superadmin/tutor/edit');
+        Route::put('tutor/{id}/update', 'list_update')->name('superadmin/tutor/update');
         Route::get('tutor-criteria', 'criteria')->name('superadmin/tutor-criteria');
+        Route::get('tutor-criteria/search', 'criteriasearch')->name('superadmin/tutor-criteria-cari');
         Route::get('tutor-criteria/{id_lowongan}/detail', 'criteria_detail')->name('superadmin/tutor-criteria/detail');
         Route::get('tutor-criteria/{id_lowongan}/terima', 'tutorcriteria_terima')->name('superadmin/tutor-criteria/detail/terima');
         Route::get('tutor-criteria/{id_lowongan}/tolak', 'tutorcriteria_tolak')->name('superadmin/tutor-criteria/detail/tolak');

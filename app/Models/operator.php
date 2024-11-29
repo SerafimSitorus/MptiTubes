@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Concerns\Hasuuids;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\LogOptions;
 
 class operator extends Model
 {

@@ -9,11 +9,13 @@
             <ul class="text-white flex flex-col gap-2 mt-3">
                 <li>Adress: Gedung C Fasilkom-TI, Universitas Sumatera Utara,
                     Jl. Alumni No.3, Padang Bulan, Kota Medan, 20155</li>
-                <li>Phone number: 628199209666</li>
+                <li>Phone number: +62-813-7501-2441</li>
                 <li>Email: fasilkomti@usu.ac.id</li>
                 <li class="flex items-center">
                     <img src="{{ asset('images/image-20.png') }}" alt="facebook" class="w-10" />
-                    <img src="{{ asset('images/image-19.png') }}" alt="facebook" class="ml-8 w-10" />
+                    <a href="https://www.instagram.com/privatetutorindonesia/" target="_blank">
+                        <img src="{{ asset('images/image-19.png') }}" alt="facebook" class="ml-8 w-10" />
+                    </a>
                     <img src="{{ asset('images/image-17.png') }}" alt="facebook" class="w-24" />
                 </li>
             </ul>

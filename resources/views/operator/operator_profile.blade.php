@@ -13,7 +13,7 @@
             <div class="relative w-[212px] h-[212px] rounded-full overflow-hidden mb-4">
                 <img src="{{ $operator->image ? asset($operator->image) : asset('images/profiluser.jpg') }}" alt="profiluser.jpg" class="w-full h-full object-cover">
             </div>
-            <p class="mt-2 mb-4 block w-full rounded-lg border-gray-300 shadow-sm sm:text-lg p-2 bg-gray-100">Halo {{ $operator->nama_operator }} Ayo ganti passwordmu secara berkala untuk keamanan ekstra</p>
+            <p class="mt-2 mb-4 block w-full rounded-lg shadow-sm sm:text-lg p-2">Halo {{ $operator->nama_operator }} Ayo ganti passwordmu secara berkala untuk keamanan ekstra</p>
         </div>
         <div class="grid-cols-1 md:grid-cols-2 gap-8">
             <div class="flex-auto">

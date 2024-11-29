@@ -9,7 +9,9 @@ use App\Models\tutor_criteria;
 use App\Models\tutor;
 use App\Models\Lamaran;
 use App\Models\Mengajar;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class DashboardController extends Controller
 {
@@ -31,7 +33,7 @@ class DashboardController extends Controller
         $alljob = tutor_criteria::where('status', 'Disetujui')
                     ->where('status_accept', 'Belum Dilamar')
                     ->orderBy('created_at', 'desc')
-                    ->paginate(5);
+                    ->paginate(6);
 
         return view('tutor.tutor-alljob', compact('alljob'));
     }
@@ -93,12 +95,12 @@ class DashboardController extends Controller
         }
         try {
             $lamar = [
-                'nik_tutor' => $nik_tutor->nik,
+                'nik_tutor' => $nik_tutor->nik, 
                 'nik_parent' => $lowongan->nik,
                 'lowongan_id' => $id_lowongan,
                 'status' => $status
             ];
-            
+
             Lamaran::create($lamar);
 
             return redirect()->route('tutor/dashboard')->with('success_lamar', 'Berhasil Melamar Pekerjaan');
@@ -333,7 +335,8 @@ class DashboardController extends Controller
         ->join('tutors', 'mengajars.nik_tutor', '=', 'tutors.nik')
         ->select('tutor_criterias.*')
         ->where('mengajars.nik_tutor', $tutor->nik)
-        ->where('mengajars.status', $status_ngajar)->get();
+        ->where('mengajars.status', $status_ngajar)->paginate(3);
+        // dd($kerja);
 
         return view('tutor.tutor-schedule', compact('kerja'));
     }

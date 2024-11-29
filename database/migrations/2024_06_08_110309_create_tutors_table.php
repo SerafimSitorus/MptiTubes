@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('universitasorsekolah')->length(250)->nullable();
             $table->enum('jenjang_pendidikan',['S3','S2', 'S1','SMA','SMK', ''])->default('');
             $table->string('jurusan')->length(100)->nullable()->nullable();
-            $table->enum('status',['Aktif','Tidak Aktif','Diberhentikan']);
+            $table->enum('status',['Aktif','Tidak Aktif']);
             $table->string('image')->nullable();
             $table->string('cv')->nullable();
             $table->timestamps();
