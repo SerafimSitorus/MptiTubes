@@ -5,9 +5,9 @@
             <span class="text-white md:block hidden font-bold text-xl">Private Tutor Indonesia</span>
         </div>
         <div class="flex items-center gap-3 ">
-            <button onclick="toggleDarkMode()" class="flex items-center space-x-2 px-3 py-3 bg-white/10 text-white rounded-md">
+            {{-- <button onclick="toggleDarkMode()" class="flex items-center space-x-2 px-3 py-3 bg-white/10 text-white rounded-md">
                 <img src="{{ asset('images/moon.svg') }}" alt="moon" class="w-6"/>
-            </button>
+            </button> --}}
             <button id="navbar-burger" class="items-center px-3 py-2 mt-2 mr-4 text-gray-200 border border-gray-400 rounded md:hidden hover:bg-blue-800">
               <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0,0,256,256"
                 style="fill:#FFFFFF;">
@@ -65,7 +65,7 @@
           <li><a href="dashboard-parents" class="flex justify-between items-center py-2 text-lg">Dashboard <span>&rarr;</span></a></li>
           <li><a href="find-tutor-parent" class="flex justify-between items-center py-2 text-lg">Cari Tutor <span>&rarr;</span></a></li>
           <li><a href="tutor-applicants-parents" class="flex justify-between items-center py-2 text-lg">List Pelamar Tutor <span>&rarr;</span></a></li>
-          <li><a href="tutor-management" class="flex justify-between items-center py-2 text-lg">Manajemen Tutor <span>&rarr;</span></a></li>
+          <li><a href="tutor-management" class="flex justify-between items-center py-2 text-lg">Tutor Status <span>&rarr;</span></a></li>
           <form action="{{route('logout')}}" method="post">
             @csrf
             <li><button type="submit" class="flex justify-between items-center py-2 text-lg">Log out <span>&rarr;</span></button></li>

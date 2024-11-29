@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>@yield('title', config('app.name', 'Laravel'))</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -15,18 +15,22 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <style>
             .gradient {
-              background: linear-gradient(90deg, #040673 0%, #e6b244 100%);
+                background: linear-gradient(90deg, #040673 0%, #e6b244 100%);
             }
         </style>
     </head>
     <body class="font-sans text-gray-900 antialiased gradient">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 dark:bg-gray-900">
-            <div>
-                <a href="/landingpage">
+            <div class="flex justify-center items-center">
+                <a href="/">
                     {{-- <x-application-logo class="w-20 h-20 fill-current text-gray-500" /> --}}
                     <img src="{{ asset('images/logobesar.png') }}" class="w-24 h-24" alt="">
                 </a>
             </div>
+            <!-- Tulisan Private Tutor Indonesia -->
+            <p class="mt-2 text-white text-2xl font-bold text-center">
+                Private Tutor Indonesia
+            </p>
 
             <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
                 {{ $slot }}

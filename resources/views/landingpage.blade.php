@@ -6,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/@heroicons/react@1.0.5/dist/index.css" rel="stylesheet">
     @vite('resources/css/app.css')
     @vite('resources/css/output.css')
-    <title>Landing Page</title>
+    <title>Private Tutor Indonesia</title>
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" />
     <!-- Replace with your tailwind.css once created -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
@@ -152,9 +152,9 @@ document.addEventListener('DOMContentLoaded', loadDarkMode);
     </div>
 @endif
       <div class="flex items-center gap-3 ">
-          <button onclick="toggleDarkMode()" class="flex items-center space-x-2 px-3 py-3 bg-white/10 text-white rounded-md">
+          {{-- <button onclick="toggleDarkMode()" class="flex items-center space-x-2 px-3 py-3 bg-white/10 text-white rounded-md">
               <img src="{{ asset('images/moon.svg') }}" alt="moon" class="w-6"/>
-          </button>
+          </button> --}}
           <button id="navbar-burger" class="items-center px-3 py-2 mt-2 mr-4 text-gray-200 border border-gray-400 rounded md:hidden hover:bg-blue-800">
             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0,0,256,256"
               style="fill:#FFFFFF;">
@@ -191,9 +191,9 @@ document.addEventListener('DOMContentLoaded', loadDarkMode);
       </button>
     </div>
     <ul class="flex flex-col gap-4 mt-16">
-        <li><a href="#" class="flex justify-between items-center py-2 text-lg">Beranda <span>&rarr;</span></a></li>
-        <li><a href="#" class="flex justify-between items-center py-2 text-lg">Tentang Kami <span>&rarr;</span></a></li>
-        <li><a href="#" class="flex justify-between items-center py-2 text-lg">Kontak <span>&rarr;</span></a></li>
+        <li><a href="/" class="flex justify-between items-center py-2 text-lg">Beranda <span>&rarr;</span></a></li>
+        <li><a href="#tentang-kami" class="flex justify-between items-center py-2 text-lg">Tentang Kami <span>&rarr;</span></a></li>
+        <li><a href="#kontak" class="flex justify-between items-center py-2 text-lg">Kontak <span>&rarr;</span></a></li>
     </ul>
 </div>
 </nav>

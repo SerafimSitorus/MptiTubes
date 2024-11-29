@@ -25,8 +25,8 @@
                 @if(Auth::check())
                   @php
                       $userId = Auth::user()->id;
-                      $parent = DB::table('parents')->where('user_id', $userId)->first();
-                      $profileImage = ($parent && $parent->image) ? $parent->image : 'images/profile.png';
+                      $tutor = DB::table('tutors')->where('user_id', $userId)->first();
+                      $profileImage = ($tutor && $tutor->image) ? $tutor->image : 'images/profile.png';
                   @endphp
                     <img src="{{ asset($profileImage) }}" alt="Profile Image" class="w-7 h-7 rounded-3xl">
                   @else

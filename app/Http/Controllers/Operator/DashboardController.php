@@ -42,8 +42,30 @@ class DashboardController extends Controller
             ->select('tutor_criterias.*', 'parents.nama_parents as parent_name')
             ->orderBy('created_at', 'desc')
             ->where('tutor_criterias.provinsi', $provinsi)
-            ->get();
+            ->paginate(10);
         return view('operator.operator-tutor-criteria-inbox', compact('operator', 'criteria'));
+
+    }
+
+    public function tutorcriteriasearch(Request $request)
+    {
+        $search = $request->input('search');
+        // dd($search);
+        $id = auth()->user()->id;
+        $operator = operator::where('user_id', $id)->first();
+        $provinsi = $operator->provinsi_naungan;
+        $criteria = DB::table('tutor_criterias')
+            ->join('parents', 'tutor_criterias.nik', '=', 'parents.nik')
+            ->select('tutor_criterias.*', 'parents.nama_parents as parent_name')
+            ->orderBy('created_at', 'desc')
+            ->where('tutor_criterias.provinsi', $provinsi);
+
+            $result = $criteria->where(function($query) use ($search) {
+                $query->orWhere('nama_parents', 'like', "%{$search}%")
+                      ->orWhere('tutor_criterias.nik', 'like', "%{$search}%");
+                    })->orderBy('created_at', 'desc')
+                    ->paginate(5);
+        return view('operator.operator-tutor-criteria-inbox', compact('result', 'search', 'operator'));
 
     }
 
@@ -121,11 +143,36 @@ class DashboardController extends Controller
                 ->select('*', 'mengajars.status as status_mengajar', 'mengajars.created_at as waktu',
                 'mengajars.updated_at as waktu_berakhir')
                 ->where('parents.provinsi', $provinsi)
-                ->get();
+                ->paginate(10);
                 // dd($data);
                 
-        return view('operator.operator-tutor-status', compact('data'));
+        return view('operator.operator-tutor-status', compact('data', 'provinsi'));
     }
+
+    public function tampilstatusmengajarsearch(Request $request)
+    {
+    $search = $request->input('search');
+    $id = auth()->user()->id;
+    $operator = operator::where('user_id', $id)->first();
+    $provinsi = $operator->provinsi_naungan;
+
+    // Query dengan filter dan pagination langsung
+    $result = DB::table('mengajars')
+        ->join('parents', 'mengajars.nik_parent', '=', 'parents.nik')
+        ->join('tutors', 'mengajars.nik_tutor', '=', 'tutors.nik')
+        ->select('*', 'mengajars.status as status_mengajar', 'mengajars.created_at as waktu', 'mengajars.updated_at as waktu_berakhir')
+        ->where('parents.provinsi', $provinsi)
+        ->where(function ($query) use ($search) {
+            $query->where('parents.nik', 'like', "%{$search}%")
+                  ->orWhere('tutors.nik', 'like', "%{$search}%")
+                  ->orWhere('tutors.nama_tutor', 'like', "%{$search}%");
+        })
+        ->orderBy('mengajars.created_at', 'desc')
+        ->paginate(5);
+
+    return view('operator.operator-tutor-status', compact('provinsi', 'search', 'result'));
+    }
+
 
     public function hentikan_mengajar($id)
     {
@@ -134,12 +181,13 @@ class DashboardController extends Controller
         $data_lamaran = Lamaran::where('id_lamaran', $data_mengajar->lamaran_id)->first();
         $data_lowongan = tutor_criteria::where('id', $data_mengajar->lowongan_id)->first();
         $data_mengajar->status = 'Berhenti';
+        $data_lowongan->status_accept = 'Belum Dilamar';
         $data_mengajar->save();
+        $data_lowongan->save();
         DB::beginTransaction();
         
         try {
             $data_lamaran->delete();
-            $data_lowongan->delete();
 
             // Jika semua operasi berhasil, komit transaksi
             DB::commit();
@@ -152,7 +200,7 @@ class DashboardController extends Controller
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menghentikan tutor.');
         }
 
-        return redirect()->back()->with('success', 'Berhendtikan Mengajar');
+        return redirect()->back()->with('success', 'Berhentikan Mengajar');
     }
 
     // public function tampilstatusmengajar_detail($id){

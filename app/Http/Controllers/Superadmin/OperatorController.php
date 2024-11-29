@@ -8,19 +8,76 @@ use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Log; 
 
 class OperatorController extends Controller
 {
     public function index()
     {
+        $provinsilist = $this->getProvinsiList();
         return view('superadmin/listoperator', [
-            'operator' => operator::all(),
-        ]);
+            'operator' => operator::paginate(10),
+        ], compact('provinsilist'));
     }
+
+    public function filtertutor(Request $request)
+    {
+        $provinsilist = $this->getProvinsiList();
+        $province = $request->input('province');
+        $result = operator::where('provinsi_naungan', $province)->paginate(5);
+
+        return view('superadmin/listoperator', compact('provinsilist', 'result'));
+    }
+
+    private function getProvinsiList()
+    {
+    return [
+        'Nanggroe Aceh Darussalam',
+        'Sumatera Utara',
+        'Sumatera Barat',
+        'Riau',
+        'Kepulauan Riau',
+        'Jambi',
+        'Sumatera Selatan',
+        'Bangka Belitung',
+        'Bengkulu',
+        'Lampung',
+        'DKI Jakarta',
+        'Jawa Barat',
+        'Banten',
+        'Jawa Tengah',
+        'DI Yogyakarta',
+        'Jawa Timur',
+        'Bali',
+        'Nusa Tenggara Barat',
+        'Nusa Tenggara Timur',
+        'Kalimantan Barat',
+        'Kalimantan Tengah',
+        'Kalimantan Selatan',
+        'Kalimantan Timur',
+        'Kalimantan Utara',
+        'Sulawesi Utara',
+        'Sulawesi Tengah',
+        'Sulawesi Selatan',
+        'Sulawesi Tenggara',
+        'Gorontalo',
+        'Sulawesi Barat',
+        'Maluku',
+        'Maluku Utara',
+        'Papua Barat',
+        'Papua',
+        'Papua Tengah',
+        'Papua Pegunungan',
+        'Papua Selatan',
+        'Papua Barat Daya',
+    ];
+    }
+
     public function create()
     {
-        return view('superadmin/addoperator');
+        $provinsilist = $this->getProvinsiList();
+        // dd($provinsilist);
+        return view('superadmin/addoperator', compact('provinsilist'));
     }
     public function store(Request $request)
     {
@@ -36,39 +93,37 @@ class OperatorController extends Controller
             'jenis_kelamin' => 'required',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
-            'provinsi' => 'required',
-            'alamat_domisili' => 'required',
-            'jenjang_pendidikan' => 'required',
-            'jurusan' => 'required',
-            'status' => 'required',
-            'image' => 'required',
+            'provinsi_naungan' => 'required',
+            'alamat_domisili' => 'required'
             
         ]);
         DB::beginTransaction();
         try {
-            User::create([
+            $user = User::create([
                 'username' => $request->username,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
-                'role' => 'operator',
+                'role' => 'operator'
             ]);
+
+            
             operator::create([
                 'nik' => $request->nik,
-                'user_id' => User::latest()->first()->id,
+                'user_id' => $user->id,
                 'nama_operator' => $request->nama_operator,
                 'jenis_kelamin' => $request->jenis_kelamin,
                 'tempat_lahir' => $request->tempat_lahir,
                 'tanggal_lahir' => $request->tanggal_lahir,
-                'provinsi_naungan' => $request->provinsi,
+                'provinsi_naungan' => $request->provinsi_naungan,
                 'alamat_domisili' => $request->alamat_domisili,
-                'jenjang_pendidikan' => $request->jenjang_pendidikan,
-                'jurusan' => $request->jurusan,
-                'status' => $request->status,
-                'image' => $request->image,
+                'jenjang_pendidikan' => 'SMA',
+                'jurusan' => 'IT',
+                'status' => 'Aktif'
             ]);
             DB::commit();
             Log::info('info',['berhasil']);
             Toastr::success('Berhasil menambahkan operator', 'success');
+            // dd();
             return redirect()->route('superadmin/operator');
         } catch (\Exception $th) {
             DB::rollBack();
@@ -77,6 +132,7 @@ class OperatorController extends Controller
             return redirect()->back()->with('error', 'Gagal Menambah Operator');
         }
     }
+
     public function show(string $nik)
     {
         $operator = Operator::where('nik', $nik)->first();
@@ -97,11 +153,12 @@ class OperatorController extends Controller
      */
     public function edit(string $id)
     {
+        $provinsilist = $this->getProvinsiList();
         $operator = operator::find($id);
         $user = User::find($operator->nik);
-        return view('superadmin.editoperator', [
+        return view('superadmin.editoperator', compact('provinsilist'), [
             'operator' => $operator,
-            'user' => $user,
+            'user' => $user
         ]);
     }
 
@@ -113,8 +170,6 @@ class OperatorController extends Controller
         $request->validate([
             'provinsi_naungan' => 'required',
             'alamat_domisili' => 'required',
-            'jenjang_pendidikan' => 'required',
-            'jurusan' => 'required',
             'status' => 'required',
         ]);
 
@@ -123,8 +178,6 @@ class OperatorController extends Controller
             $operator = Operator::findOrFail($id); // Find the operator by ID
             $operator->provinsi_naungan = $request->provinsi_naungan;
             $operator->alamat_domisili = $request->alamat_domisili;
-            $operator->jenjang_pendidikan = $request->jenjang_pendidikan;
-            $operator->jurusan = $request->jurusan;
             $operator->status = $request->status;
             // Update other fields similarly
 

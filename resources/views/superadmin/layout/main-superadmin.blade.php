@@ -63,40 +63,6 @@
     <script src="{{ asset('script.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        window.onload = function() {
-            const ctx = document.getElementById('activityChart').getContext('2d');
-            const activityChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['FannyLightborn (Tutor)', 'Moskov (Tutor)', 'Cecilion (Tutor)', 'YuZhong (Tutor)'],
-                    datasets: [{
-                        label: 'Number of Classes Taught',
-                        data: [10, 20, 15, 5], // Ganti dengan data dinamis jika perlu
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Number of Classes'
-                            }
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Tutors'
-                            }
-                        }
-                    }
-                }
-            });
-        };
-
         document.getElementById('nextPageBtn').addEventListener('click', function() {
             // Logika untuk berpindah ke halaman selanjutnya
             // Contoh: window.location.href = 'next-page.html';

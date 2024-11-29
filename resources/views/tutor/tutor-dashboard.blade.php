@@ -52,4 +52,12 @@
     </div>
 </div>
 
+<script>
+    if (document.getElementById('alertMessage')) {
+        setTimeout(function() {
+            document.getElementById('alertMessage').style.display = 'none';
+        }, 5000); // Menghilangkan pesan setelah 5 detik (5000 milidetik)
+    }
+</script>
+
 @endsection

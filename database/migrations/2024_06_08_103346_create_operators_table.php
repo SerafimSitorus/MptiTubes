@@ -15,14 +15,8 @@ return new class extends Migration
             $table->string('nik')->length(16)->primary();
             $table->uuid('user_id');
             $table->string('nama_operator')->length(150);
-            $table->enum('jenis_kelamin',['L','P']);
-            $table->string('tempat_lahir')->length(100);
-            $table->date('tanggal_lahir');
             $table->string('provinsi_naungan');
-            $table->string('alamat_domisili')->length(250);
-            $table->enum('jenjang_pendidikan',['S3','S2', 'S1','SMA','SMK']);
-            $table->string('jurusan')->length(100);
-            $table->enum('status',['Aktif','Tidak Aktif','Diberhentikan']);
+            $table->enum('status',['Aktif','Tidak Aktif']);
             $table->string('image')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');

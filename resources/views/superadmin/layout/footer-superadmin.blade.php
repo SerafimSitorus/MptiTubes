@@ -7,9 +7,7 @@
         <div>
             <h3 class="text-yellow-500 font-semibold text-2xl">Let's connect with us!</h3>
             <ul class="text-white flex flex-col gap-2 mt-3">
-                <li>Adress: Gedung C Fasilkom-TI, Universitas Sumatera Utara,
-                             Jl. Alumni No.3, Padang Bulan, Kota Medan, 20155</li>
-                <li>Phone number: 628199209666</li>
+                <li>Phone number: +62-813-7501-2441</li>
                 <li>Email: fasilkomti@usu.ac.id</li>
                 <li class="flex items-center">
                     <img src="{{ asset('images/image-20.png') }}" alt="facebook" class="w-10"/>
@@ -20,7 +18,7 @@
         </div>
         <div>
             <h3 class="text-yellow-500 font-semibold text-2xl">Our menu</h3>
-            <ul class="text-white flex flex-col gap-2 mt-3">
+            <ul class="text-white fxlex flex-col gap-2 mt-3">
                 <li>Beranda</li>
                 <li>Tentang kami</li>
                 <li>Cari lowongan mengajar</li>

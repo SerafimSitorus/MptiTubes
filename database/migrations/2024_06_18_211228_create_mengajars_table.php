@@ -12,12 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('mengajars', function (Blueprint $table) {
-            $table->increments('id');
-            $table->char('lowongan_id')->length(36);
-            $table->unsignedBigInteger('lamaran_id');
+            $table->uuid('id');
+            $table->uuid('lowongan_id');
+            $table->uuid('lamaran_id');
             $table->string('nik_tutor')->length(16);
             $table->string('nik_parent')->length(16);
             $table->enum('status',['Mengajar','Berhenti'])->default('Mengajar');
+            $table->foreign('lowongan_id')->references('id')->on('tutor_criterias');
+            
             $table->timestamps();
         });
     }

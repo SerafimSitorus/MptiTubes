@@ -89,13 +89,8 @@
             <div id="superadmin-menu-tutormanagement" class="hidden md:flex flex-col ml-7 space-y-2 rounded p-4">
                 <a href="{{route('superadmin/tutor')}}" class="text-black hover:bg-yellow-100 p-2 rounded-md {{request()->is('superadmin/tutor') ? 'bg-yellow-100' : ''}}">List Tutor</a>
                 <a href="{{route('superadmin/tutor-criteria')}}" class="text-black hover:bg-yellow-100 p-2 rounded-md {{request()->is('superadmin/tutor-criteria') ? 'bg-yellow-100' : ''}}">Daftar Kriteria Tutor</a>
-                <a href="{{route('superadmin/tutor-review')}}" class="text-black hover:bg-yellow-100 p-2 rounded-md {{request()->is('superadmin/tutor-review') ? 'bg-yellow-100' : ''}}">Tutor Review</a>
             </div>
         </div>
-        <a href="{{route('superadmin/audit')}}" class=" flex items-center gap-3 px-4 py-2 hover:bg-yellow-100 rounded-md">
-            <img src="{{ asset('images/image-6.svg') }}" alt="user management" />
-            <span class="text-black text-base hidden md:block">Log Audit</span>
-        </a>
         <!--
         <div class="relative">
             <div id="superadmin-button-payment" class=" flex items-center gap-3 px-4 py-2 hover:bg-yellow-100 rounded-md cursor-pointer">

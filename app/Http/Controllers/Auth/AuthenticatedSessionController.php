@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use App\Models\User;
 use App\Models\operator;
+use App\Models\tutor;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -35,6 +36,7 @@ class AuthenticatedSessionController extends Controller
         $user = Auth::user();
         $iduser = $user->id;
         $operator = operator::where('user_id', $iduser)->first();
+        $tutor = tutor::where('user_id', $iduser)->first();
 
         // Redirect berdasarkan role user
         if ($user->role === 'superadmin') {
@@ -49,7 +51,15 @@ class AuthenticatedSessionController extends Controller
                 ]);
             }
         } elseif ($user->role === 'tutor') {
-            return redirect()->route('tutor/dashboard');
+            if ($tutor->status === 'Aktif') {
+                return redirect()->route('tutor/dashboard');
+            } else {
+                Auth::logout();
+                throw ValidationException::withMessages([
+                    'email' => ['Maaf Akun Anda Sudah Tidak Aktif.'],
+                ]);
+            }
+            
         } elseif ($user->role === 'parents') {
             return redirect()->route('parent/dashboard-parents');
         } elseif ($user->role === 'job_seeker') {

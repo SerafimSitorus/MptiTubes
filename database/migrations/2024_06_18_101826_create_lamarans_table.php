@@ -12,11 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('lamarans', function (Blueprint $table) {
-            $table->increments('id_lamaran');
+            $table->uuid('id_lamaran');
             $table->string('nik_tutor')->length(16);   
             $table->string('nik_parent')->length(16);
-            $table->char('lowongan_id')->length(36);
+            $table->uuid('lowongan_id');
             $table->enum('status',['Disetujui','Ditolak', 'Menunggu Persetujuan']);
+            $table->foreign('lowongan_id')->references('id')->on('tutor_criterias')->onDelete('cascade');
             $table->timestamps();
 
         });

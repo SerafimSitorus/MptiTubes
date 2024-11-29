@@ -140,7 +140,7 @@
             </div>
             <div class="mt-8 flex justify-center space-x-4">
                 <a href="dashboard"
-                    class="px-8 py-4 bg-gray-600 text-white rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 text-lg font-bold">Cancel</a>
+                    class="px-8 py-4 bg-gray-600 text-white rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 text-lg font-bold">Kembali</a>
             </div>
         </div>
     </div>
